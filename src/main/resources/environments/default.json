@@ -1,0 +1,8 @@
+{
+  "url": "http://localhost:8080",
+  "test-packages": [
+    "com.vilson.tests.api.*",
+    "com.vilson.tests.ui.*"
+  ],
+  "headless": false
+}
