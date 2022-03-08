@@ -50,7 +50,7 @@ public class AdditionalKeywordsTest {
                 .param("negativeOnly", true)
                 .param("positiveOnly", true);
 
-        Response response = given().spec(requestSpecification).log().all()
+        Response response = given().spec(requestSpecification)
                 .get()
                 .then()
                 .statusCode(400)
@@ -61,7 +61,7 @@ public class AdditionalKeywordsTest {
                 .extract()
                 .response();
 
-        Reporter.log(response.asPrettyString());
+        Reporter.log(response.asPrettyString(), 2);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class AdditionalKeywordsTest {
                 .extract()
                 .response();
 
-        Reporter.log(response.asPrettyString());
+        Reporter.log(response.asPrettyString(), 2);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class AdditionalKeywordsTest {
                 .extract()
                 .response();
 
-        Reporter.log(response.asPrettyString());
+        Reporter.log(response.asPrettyString(), 2);
     }
 
     @Test
@@ -107,6 +107,6 @@ public class AdditionalKeywordsTest {
                 .extract()
                 .response();
 
-        Reporter.log(response.asPrettyString());
+        Reporter.log(response.asPrettyString(), 2);
     }
 }

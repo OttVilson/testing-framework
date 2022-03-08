@@ -27,8 +27,8 @@ public class EnvironmentConfigurations {
 
     public EnvironmentConfigurations(Environment environment, Gson gson) {
         this(gson);
-        Environment defaultEnvironment = environments.get("default");
-        environment = MergeRules.merge(defaultEnvironment, environment);
+        Environment production = environments.get("production");
+        environment = MergeRules.merge(production, environment);
         environments.put("custom", environment);
         listOfEnvironments.add("custom");
     }

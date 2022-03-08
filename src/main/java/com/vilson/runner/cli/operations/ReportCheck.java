@@ -8,6 +8,7 @@ import com.vilson.runner.tests.TestResultWrapper;
 import com.vilson.runner.tests.TestsRepository;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +23,7 @@ public class ReportCheck {
     private final List<Operation> operations = new ArrayList<>();
     private final SingleChooser<Operation> operationChooser;
     private final Gson gson;
+    private final Scanner scanner;
 
     public ReportCheck(TestRun testRun, TestsRepository testsRepository, Scanner scanner, Gson gson) {
         this.testRun = testRun;
@@ -29,6 +31,7 @@ public class ReportCheck {
         fillOperationsList();
         operationChooser = new SingleChooser<>(operations, scanner, String::valueOf);
         this.gson = gson;
+        this.scanner = scanner;
     }
 
     public void check() {
@@ -85,7 +88,8 @@ public class ReportCheck {
                     .map(wrap -> wrap.getResult() + " " + wrap.getTest().getMethodName())
                     .forEach(System.out::println);
 
-            
+            TestDetails testDetails = new TestDetails(tests, scanner, gson);
+            testDetails.check();
         }
 
         private TestResultWrapper wrap(ITestResult iTestResult) {
@@ -104,12 +108,15 @@ public class ReportCheck {
             if (throwable != null) {
                 TestResultWrapper.Exception exception = new TestResultWrapper.Exception();
                 exception.setCause(throwable.getMessage());
-                String stackTrace = Arrays.stream(throwable.getStackTrace())
+                String[] stackTrace = Arrays.stream(throwable.getStackTrace())
                         .map(StackTraceElement::toString)
-                        .collect(Collectors.joining("\r\n\tat "));
+                        .toArray(String[]::new);
                 exception.setStackTrace(stackTrace);
                 wrapper.setException(exception);
             }
+
+            List<String> log = Reporter.getOutput(iTestResult);
+            wrapper.setLog(log.toArray(String[]::new));
 
             return wrapper;
         }

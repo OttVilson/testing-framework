@@ -7,6 +7,7 @@ public class TestResultWrapper {
     private Result result;
     private Test test;
     private Exception exception;
+    private String[] log;
 
     public Test getTest() {
         return test;
@@ -32,11 +33,19 @@ public class TestResultWrapper {
         this.exception = exception;
     }
 
+    public String[] getLog() {
+        return log;
+    }
+
+    public void setLog(String[] log) {
+        this.log = log;
+    }
+
 
     public static class Exception {
         private String cause;
         @SerializedName("stack-trace")
-        private String stackTrace;
+        private String[] stackTrace;
 
         public String getCause() {
             return cause;
@@ -46,11 +55,11 @@ public class TestResultWrapper {
             this.cause = cause;
         }
 
-        public String getStackTrace() {
+        public String[] getStackTrace() {
             return stackTrace;
         }
 
-        public void setStackTrace(String stackTrace) {
+        public void setStackTrace(String[] stackTrace) {
             this.stackTrace = stackTrace;
         }
     }
