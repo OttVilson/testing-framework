@@ -11,19 +11,22 @@ import com.vilson.runner.run.TestRun;
 import com.vilson.runner.tests.TestsRepository;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.vilson.runner.cli.operations.Operation.EXIT;
 
 public class MainOperations {
 
     private final TestsRepository testsRepository;
-    private final EnvironmentConfigurations environmentConfigurations;
     private final Scanner scanner;
     private final Gson gson;
 
     private final List<Operation> operations = new ArrayList<>();
     private final TestsRunner testsRunner;
     private final Map<String, TestRun> testRuns = new HashMap<>();
+
+    private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
     private int numberOfTestRuns = 0;
 
@@ -38,7 +41,6 @@ public class MainOperations {
     private MainOperations(Scanner scanner, EnvironmentConfigurations environmentConfigurations, Gson gson) {
         this.gson = gson;
         this.scanner = scanner;
-        this.environmentConfigurations = environmentConfigurations;
         testsRepository = new TestsRepository(gson);
         testsRunner = new TestsRunner(environmentConfigurations, testsRepository, scanner, gson);
         fillOperationsList();
@@ -46,6 +48,10 @@ public class MainOperations {
 
     List<Operation> getOperations() {
         return operations;
+    }
+
+    void stop() {
+        executorService.shutdown();
     }
 
     private void fillOperationsList() {
@@ -80,8 +86,15 @@ public class MainOperations {
 
         @Override
         public void process() {
-            TestRun run = testsRunner.singleRun();
-            testRuns.put("Test run nr. " + ++numberOfTestRuns, run);
+            int index = ++numberOfTestRuns;
+            System.out.println("Started test run nr. " + index);
+            TestRun testRun = testsRunner.singleRun();
+            Runnable runTests = () -> {
+                testRun.run();
+                testRuns.put("Test run nr. " + index, testRun);
+                System.out.println("Test run nr. " + index + " finished.");
+            };
+            executorService.submit(runTests);
         }
     }
 }

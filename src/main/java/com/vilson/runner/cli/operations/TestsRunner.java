@@ -48,29 +48,4 @@ public class TestsRunner {
                 .map(Optional::get)
                 .collect(Collectors.toList());
     }
-
-    /*
-    public void tere() {
-        EnvironmentConfigurations ec = new EnvironmentConfigurations();
-        Environment production = ec.getEnvironment("production").get();
-
-        List<Test> chosenOnes = testsChooser.chooseFromList();
-        TestRun testRun = new TestRun(chosenOnes, new TestNgConfiguration(), production);
-        // https://stackoverflow.com/questions/45582864/how-to-integrate-the-reporter-loglogin-failed-with-custom-testng-report-usi
-        testRun.getReporter().getPassed().stream()
-                .map(Reporter::getOutput)
-                .flatMap(Collection::stream)
-                .forEach(System.out::println);
-        // testRun.getReporter().getFailed().stream().map(ITestResult::getThrowable)
-        //        .map(Throwable::getMessage).forEach(System.out::println);
-        /*
-        testRun.getReporter().getFailed().stream().map(ITestResult::getThrowable)
-                .map(Throwable::getStackTrace).map(
-                s -> {
-                    List<String> st = Arrays.stream(s).map(String::valueOf).collect(Collectors.toList());
-                    return String.join("\r\n\tat ", st);
-                }
-        ).forEach(System.out::println);
-    }
-    */
 }

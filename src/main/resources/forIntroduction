@@ -9,8 +9,12 @@ The possible options tree is the following
    *) choose environment
    *) configure TestNG run parameters (verbosity, no. of threads,
       order preserving, parallel modes)
-   *) choose tests from input, and wait for them to run (currently
-      this is a blocking operation)
+   *) choose tests from input, and wait for them to run (this is
+      not a blocking operation; depending on the log level there
+      will be output to console, and for that case it is useful
+      to remember to press 3; this will prompt to look previous
+      test runs or sends back to opening menu, if no test runs
+      have finished yet)
 3) CHECK PREVIOUS TEST RUNS
    *) choose test run
         I)   EXIT
