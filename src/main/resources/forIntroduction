@@ -1,0 +1,42 @@
+The user can navigate in the program by choosing the next operation
+from the displayed list via typing in the corresponding number and
+pressing ENTER. The choice EXIT will always take the user back one
+level, and finally end the program if there are no more levels.
+
+The possible options tree is the following
+1) EXIT
+2) RUN TESTS
+   *) choose environment
+   *) configure TestNG run parameters (verbosity, no. of threads,
+      order preserving, parallel modes)
+   *) choose tests from input, and wait for them to run (currently
+      this is a blocking operation)
+3) CHECK PREVIOUS TEST RUNS
+   *) choose test run
+        I)   EXIT
+        II)  VIEW CONFIGURATION
+        III) VIEW ENVIRONMENT
+        IV)  PRINT TEST RUN RESULTS
+            A) EXIT
+            B) CHECK TEST DETAILS
+
+All the API tests currently log out response when verbosity level is
+set to 2 or higher.
+Also the UI tests log more info for the same verbosity level.
+
+One can provide either URL or headless parameter or both when running
+the application as command line argument, e.g.
+
+java -jar target/testing-framework-1.0-SNAPSHOT.jar "{\"headless\":false}"
+
+The argument must be in JSON format (mind the escaping of the quotes) and
+the user may choose to specify either the URL, headless parameter or both
+"{\"url":\"myUrl\",\"headless\":false}"
+
+When used then these options become visible as the third environment.
+Note that the environment provided by the application has headless set to
+true, so GUI test will not open browser. However, if the parameter is set
+to false, then this gives an opportunity to interrupt the test, and see
+both log as well as exception in the test details view.
+
+So, now to the program. Scroll back to read the introduction.

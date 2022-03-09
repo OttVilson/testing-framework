@@ -45,6 +45,7 @@ public class MultiChooser<T> extends Chooser<T> {
     private void showChosenOnes(List<T> chosenOnes) {
         System.out.println("You chose:");
         printList(chosenOnes);
+        System.out.println();
     }
 
     private List<Integer> getInput() {

@@ -25,6 +25,7 @@ public class SimpleCLI {
         SingleChooser<Operation> chooseOperation =
                 new SingleChooser<>(mainOperations.getOperations(), scanner, String::valueOf);
 
+        ForIntroduction.printIntroduction();
         while (true) {
             Operation op = chooseOperation.chooseFromList();
             if (op.equals(Operation.EXIT)) break;

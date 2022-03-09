@@ -17,6 +17,7 @@ class Chooser<T> {
     }
 
     void showAvailableOptions() {
+        System.out.println();
         System.out.println(String.format("The available %ss are",
                 availableOptions.get(0).getClass().getSimpleName()));
         printList(availableOptions);

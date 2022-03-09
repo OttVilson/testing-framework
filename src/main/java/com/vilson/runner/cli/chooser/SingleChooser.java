@@ -42,5 +42,6 @@ public class SingleChooser<T> extends Chooser<T> {
     private void showChosenOne(T chosenOne) {
         System.out.println("You chose:");
         System.out.println(outputFormat.apply(chosenOne));
+        System.out.println();
     }
 }
