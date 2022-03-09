@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 // https://www.baeldung.com/testng-custom-reporting
+// https://stackoverflow.com/questions/45582864/how-to-integrate-the-reporter-loglogin-failed-with-custom-testng-report-usi
 public class Reporter implements IReporter {
 
     private long start;
@@ -52,9 +53,6 @@ public class Reporter implements IReporter {
     }
 
     private void populateSets(ITestContext context) {
-        System.out.println("Failed tests: " + context.getFailedTests().size());
-        System.out.println("Skipped tests: " + context.getSkippedTests().size());
-        System.out.println("Passed tests: " + context.getPassedTests().size());
         failed.addAll(context.getFailedTests().getAllResults());
         skipped.addAll(context.getSkippedTests().getAllResults());
         passed.addAll(context.getPassedTests().getAllResults());

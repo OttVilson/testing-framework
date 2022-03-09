@@ -9,7 +9,7 @@ public class TestNgConfiguration {
     private int verbose;
     private int threadCount;
 
-    public XmlSuite.ParallelMode getParallelMode() {
+    XmlSuite.ParallelMode getParallelMode() {
         return parallelMode;
     }
 
@@ -17,7 +17,7 @@ public class TestNgConfiguration {
         this.parallelMode = parallelMode;
     }
 
-    public boolean isPreserveOrder() {
+    boolean isPreserveOrder() {
         return preserveOrder;
     }
 
@@ -25,7 +25,7 @@ public class TestNgConfiguration {
         this.preserveOrder = preserveOrder;
     }
 
-    public int getVerbose() {
+    int getVerbose() {
         return verbose;
     }
 
@@ -33,7 +33,7 @@ public class TestNgConfiguration {
         this.verbose = verbose;
     }
 
-    public int getThreadCount() {
+    int getThreadCount() {
         return threadCount;
     }
 

@@ -3,7 +3,6 @@ package com.vilson.runner.run;
 import com.vilson.environment.Environment;
 import com.vilson.runner.tests.Test;
 import com.vilson.runner.tests.TestsGrouper;
-import org.testng.ITestResult;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
@@ -16,13 +15,18 @@ public class TestRun {
     private final TestNgConfiguration conf;
     private final Environment environment;
     private final Reporter reporter = new Reporter();
+    private final TestNG testNG;
+    private final List<Test> tests;
 
     public TestRun(List<Test> tests, TestNgConfiguration conf, Environment environment) {
+        this.tests = tests;
         this.conf = conf;
         this.environment = environment;
-        TestNG testNG = getTestNG();
+        this.testNG = getTestNG();
+    }
+
+    public void run() {
         runTests(tests, testNG);
-        reporter.getStreamOfAll().map(ITestResult::getName).forEach(System.out::println);
     }
 
     public Reporter getReporter() {
