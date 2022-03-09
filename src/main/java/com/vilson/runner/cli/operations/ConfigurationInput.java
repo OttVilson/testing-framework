@@ -21,7 +21,7 @@ class ConfigurationInput {
     TestNgConfiguration getConfiguration() {
         TestNgConfiguration conf = new TestNgConfiguration();
         conf.setVerbose(getVerbosity());
-        conf.setThreadCount(getnumberOfThreads());
+        conf.setThreadCount(getNumberOfThreads());
         conf.setPreserveOrder(getPreserveOrder());
         conf.setParallelMode(parallelModeChooser.chooseFromList());
 
@@ -40,7 +40,7 @@ class ConfigurationInput {
         return getInt("Choose an integer 0-10 for verbosity.", validateBounds);
     }
 
-    private int getnumberOfThreads() {
+    private int getNumberOfThreads() {
         Consumer<Integer> validateBounds = i -> {
             if (i < 1) throw new IllegalArgumentException("Number of threads must be positive.");
         };

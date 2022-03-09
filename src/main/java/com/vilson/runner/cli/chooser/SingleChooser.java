@@ -29,6 +29,12 @@ public class SingleChooser<T> extends Chooser<T> {
         }
     }
 
+    private void showChosenOne(T chosenOne) {
+        System.out.println("You chose:");
+        System.out.println(outputFormat.apply(chosenOne));
+        System.out.println();
+    }
+
     private int readInNumber() {
         int index = minusOneToGetZeroBasedIndex(Integer.parseInt(scanner.next()));
         if (index < 0 || index >= availableOptions.size()) {
@@ -37,11 +43,5 @@ public class SingleChooser<T> extends Chooser<T> {
             throw new IllegalArgumentException(message);
         }
         return index;
-    }
-
-    private void showChosenOne(T chosenOne) {
-        System.out.println("You chose:");
-        System.out.println(outputFormat.apply(chosenOne));
-        System.out.println();
     }
 }

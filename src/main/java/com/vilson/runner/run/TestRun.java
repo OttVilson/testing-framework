@@ -41,19 +41,6 @@ public class TestRun {
         return environment;
     }
 
-    private void runTests(List<Test> tests, TestNG testNG) {
-        XmlTest test = wireTest(testNG);
-        List<XmlClass> classes = TestsGrouper.groupTestsByClass(tests);
-        test.setXmlClasses(classes);
-        testNG.run();
-    }
-
-    private XmlTest wireTest(TestNG testNG) {
-        XmlSuite suite = new XmlSuite();
-        testNG.setXmlSuites(List.of(suite));
-        return new XmlTest(suite);
-    }
-
     private TestNG getTestNG() {
         TestNG testNG = new TestNG();
         configureTestNg(testNG);
@@ -62,10 +49,23 @@ public class TestRun {
         return testNG;
     }
 
+    private void runTests(List<Test> tests, TestNG testNG) {
+        XmlTest test = wireTest(testNG);
+        List<XmlClass> classes = TestsGrouper.groupTestsByClass(tests);
+        test.setXmlClasses(classes);
+        testNG.run();
+    }
+
     private void configureTestNg(TestNG testNG) {
         if (conf.getParallelMode() != null) testNG.setParallel(conf.getParallelMode());
         testNG.setPreserveOrder(conf.isPreserveOrder());
         if (conf.getThreadCount() != 0) testNG.setThreadCount(conf.getThreadCount());
         testNG.setVerbose(conf.getVerbose());
+    }
+
+    private XmlTest wireTest(TestNG testNG) {
+        XmlSuite suite = new XmlSuite();
+        testNG.setXmlSuites(List.of(suite));
+        return new XmlTest(suite);
     }
 }

@@ -8,7 +8,6 @@ import com.vilson.runner.cli.operations.Operation;
 import com.vilson.runner.cli.operations.ReportCheck;
 import com.vilson.runner.cli.operations.TestsRunner;
 import com.vilson.runner.run.TestRun;
-import com.vilson.runner.tests.TestsRepository;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -18,7 +17,6 @@ import static com.vilson.runner.cli.operations.Operation.EXIT;
 
 public class MainOperations {
 
-    private final TestsRepository testsRepository;
     private final Scanner scanner;
     private final Gson gson;
 
@@ -41,8 +39,7 @@ public class MainOperations {
     private MainOperations(Scanner scanner, EnvironmentConfigurations environmentConfigurations, Gson gson) {
         this.gson = gson;
         this.scanner = scanner;
-        testsRepository = new TestsRepository(gson);
-        testsRunner = new TestsRunner(environmentConfigurations, testsRepository, scanner, gson);
+        testsRunner = new TestsRunner(environmentConfigurations, scanner, gson);
         fillOperationsList();
     }
 
@@ -73,7 +70,7 @@ public class MainOperations {
                 SingleChooser<String> previousTestRunsChooser =
                         new SingleChooser<>(List.copyOf(testRuns.keySet()), scanner, String::valueOf);
                 String id = previousTestRunsChooser.chooseFromList();
-                ReportCheck reportCheck = new ReportCheck(testRuns.get(id), testsRepository, scanner, gson);
+                ReportCheck reportCheck = new ReportCheck(testRuns.get(id), scanner, gson);
                 reportCheck.check();
             }
         }

@@ -23,11 +23,11 @@ public class TestsRunner {
     private final MultiChooser<Test> testsChooser;
     private final ConfigurationInput configurationInput;
 
-    public TestsRunner(EnvironmentConfigurations environmentConfigurations, TestsRepository testsRepository,
-                       Scanner scanner, Gson gson) {
+    public TestsRunner(EnvironmentConfigurations environmentConfigurations, Scanner scanner, Gson gson) {
         this.environmentConfigurations = environmentConfigurations;
-
         environmentChooser = new SingleChooser<>(allEnvironments(), scanner, gson::toJson);
+
+        TestsRepository testsRepository = new TestsRepository(gson);
         testsChooser = new MultiChooser<>(testsRepository.getAll(), scanner, gson::toJson);
         configurationInput = new ConfigurationInput(scanner);
     }

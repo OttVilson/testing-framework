@@ -22,7 +22,7 @@ public class EnvironmentConfigurations {
     public EnvironmentConfigurations(Gson gson) {
         this.gson = gson;
         listOfEnvironments = getFileNames();
-        populateEnvironments();
+        populateEnvironmentsMap();
     }
 
     public EnvironmentConfigurations(Environment environment, Gson gson) {
@@ -44,17 +44,17 @@ public class EnvironmentConfigurations {
             return Optional.empty();
     }
 
-    private void populateEnvironments() {
-        listOfEnvironments.forEach(this::processEnvironment);
-        mergeEnvironments();
-    }
-
     private List<String> getFileNames() {
         String path = ENVIRONMENTS_FOLDER + "/list";
         return fromInputStream(path,
                 bufferedReader -> bufferedReader.lines()
                         .filter(line -> !line.startsWith("#"))
                         .collect(Collectors.toList()));
+    }
+
+    private void populateEnvironmentsMap() {
+        listOfEnvironments.forEach(this::processEnvironment);
+        mergeEnvironments();
     }
 
     private void processEnvironment(String fileName) {
@@ -64,7 +64,7 @@ public class EnvironmentConfigurations {
     }
 
     private void mergeEnvironments() {
-        DependencyTree tree = new DependencyTree(listOfEnvironments);
+        DependencyTree tree = new DependencyTree(listOfEnvironments, gson);
         Optional<List<String>> roots = tree.getChildrenOf(null);
         roots.stream()
                 .flatMap(Collection::stream)
