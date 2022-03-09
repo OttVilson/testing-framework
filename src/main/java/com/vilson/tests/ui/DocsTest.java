@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -29,6 +30,12 @@ public class DocsTest {
         if (environment.isHeadless())
             options.addArguments("headless");
         driver = new ChromeDriver(options);
+    }
+
+    @AfterMethod
+    public void teardown() {
+        Reporter.log("Closing the browser.");
+        driver.quit();
     }
 
     @Test
@@ -69,9 +76,6 @@ public class DocsTest {
         boolean elementsAreHighlightedAfterClick =
                 docsPage.areElementsWithIdSuffixHighlighted(idSuffixCorrespondingToHit);
         Assert.assertTrue(elementsAreHighlightedAfterClick);
-
-        Reporter.log("Closing the browser.");
-        driver.close();
     }
 
     private static String composeUrl(Environment environment, String docId) {
