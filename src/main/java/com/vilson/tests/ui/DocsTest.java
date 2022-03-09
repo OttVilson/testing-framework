@@ -33,8 +33,7 @@ public class DocsTest {
     }
 
     @AfterMethod
-    public void teardown() {
-        Reporter.log("Closing the browser.");
+    public void tearDown() {
         driver.quit();
     }
 
@@ -76,6 +75,8 @@ public class DocsTest {
         boolean elementsAreHighlightedAfterClick =
                 docsPage.areElementsWithIdSuffixHighlighted(idSuffixCorrespondingToHit);
         Assert.assertTrue(elementsAreHighlightedAfterClick);
+
+        Reporter.log("Closing the browser.");
     }
 
     private static String composeUrl(Environment environment, String docId) {
