@@ -53,7 +53,8 @@ public class DocsTest {
         WebElement lastSnippet = docsPage.getLastVisibleSnippet();
         String idSuffixCorrespondingToHit = docsPage.getRelevantIdFromSnippet(lastSnippet);
         Reporter.log(
-                String.format("The id related to last hit in Document Viewer starts with %s.", idSuffixCorrespondingToHit), 2);
+                String.format("The id related to last hit in Document Viewer starts with %s.", idSuffixCorrespondingToHit),
+                2);
         String idOfLastHit = docsPage.getIdOfLastHitInDocumentViewer();
         Assert.assertTrue(idOfLastHit.startsWith(idSuffixCorrespondingToHit),
                 "The last snippet should have access to the id suffix of the hits in document viewer.");

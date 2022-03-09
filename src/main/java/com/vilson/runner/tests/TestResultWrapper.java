@@ -67,6 +67,6 @@ public class TestResultWrapper {
     public enum Result {
         SUCCESS,
         FAILURE,
-        SKIP;
+        SKIP
     }
 }

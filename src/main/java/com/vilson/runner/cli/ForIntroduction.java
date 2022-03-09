@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class ForIntroduction {
+class ForIntroduction {
 
-    public static void printIntroduction() {
+    static void printIntroduction() {
         ForIntroduction fi = new ForIntroduction();
         ClassLoader loader = fi.getClass().getClassLoader();
         InputStream is = loader.getResourceAsStream("forIntroduction");

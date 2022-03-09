@@ -10,9 +10,10 @@ import java.util.*;
 
 class DependencyTree {
     private final Map<String, List<String>> mergeTo = new HashMap<>();
-    private final Gson gson = new Gson();
+    private final Gson gson;
 
-    DependencyTree(List<String> fileNames) {
+    DependencyTree(List<String> fileNames, Gson gson) {
+        this.gson = gson;
         initializeMergeTo(fileNames);
     }
 
@@ -45,10 +46,10 @@ class DependencyTree {
     }
 
     private void processInsert(Reader reader, String fileName) {
-        String parent = null;
+        String parentFileName = null;
         JsonElement mergeTo = gson.fromJson(reader, JsonObject.class).get("merge-to");
-        if (mergeTo != null) parent = mergeTo.getAsString();
-        insertToMap(parent, fileName);
+        if (mergeTo != null) parentFileName = mergeTo.getAsString();
+        insertToMap(parentFileName, fileName);
     }
 
     private void insertToMap(@Nullable String parent, String child) {

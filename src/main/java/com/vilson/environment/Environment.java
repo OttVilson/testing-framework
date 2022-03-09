@@ -28,7 +28,8 @@ public class Environment {
 
     @Override
     public String toString() {
-        return url + " and " + (testPackages != null ? String.join(", ", testPackages) : "");
+        return url + ", " + " headless is " + headless + " and " +
+                (testPackages != null ? String.join(", ", testPackages) : "");
     }
 
     public Boolean isHeadless() {

@@ -21,13 +21,12 @@ public class SimpleCLI {
 
         Scanner scanner = new Scanner(System.in);
         MainOperations mainOperations = getMainOperations(environment, scanner, gson);
-
-        SingleChooser<Operation> chooseOperation =
+        SingleChooser<Operation> operationChooser =
                 new SingleChooser<>(mainOperations.getOperations(), scanner, String::valueOf);
 
         ForIntroduction.printIntroduction();
         while (true) {
-            Operation op = chooseOperation.chooseFromList();
+            Operation op = operationChooser.chooseFromList();
             if (op.equals(Operation.EXIT)) {
                 mainOperations.stop();
                 break;
@@ -40,7 +39,7 @@ public class SimpleCLI {
         try {
             return gson.fromJson(json, Environment.class);
         } catch (JsonSyntaxException e) {
-            System.out.println("The input did not correspond to Environment structure.");
+            System.out.println("The input did not correspond to the Environment structure.");
         }
 
         return null;
