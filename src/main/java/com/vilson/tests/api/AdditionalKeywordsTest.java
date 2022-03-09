@@ -1,6 +1,7 @@
 package com.vilson.tests.api;
 
 import com.vilson.environment.Environment;
+import com.vilson.tests.helpers.RestAssuredLogsFilter;
 import com.vilson.tests.helpers.TestInitHelpers;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -39,7 +40,8 @@ public class AdditionalKeywordsTest {
                 .addParam("released", 1640995199000L)
                 .addPathParam("docId", docId)
                 .addHeader("accept", "application/json")
-                .setConfig(config().paramConfig(paramConfig().replaceAllParameters()));
+                .setConfig(config().paramConfig(paramConfig().replaceAllParameters()))
+                .addFilter(new RestAssuredLogsFilter());
 
         requestSpecification = builder.build();
     }
@@ -96,6 +98,7 @@ public class AdditionalKeywordsTest {
 
     @Test
     public void givenNonRecurringHits_originalStatementCountShouldBeEqualToLengthOfHitsList() {
+
         Response response = given()
                 .spec(requestSpecification)
                 .get()
