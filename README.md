@@ -9,4 +9,5 @@ where either of the fields can be omitted, so all
 * \"{\\\"ulr\\\":\\\"someUrl\\\"}\"
 * \"{\\\"headless\\\":true}\"
 * \"{\\\"url\\\":\\\"myUrl\\\",\\\"headless\\\":false}\"
+
 are valid.
